@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://mywcqdus4e42"]
+
+[ext_resource type="PackedScene" uid="uid://cy2fj3ixjo1ym" path="res://Models/map_01.blend" id="1_3c0u8"]
+[ext_resource type="Material" uid="uid://butn4re5yiiip" path="res://Textures/mat_default.tres" id="2_5glvh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ws5u5"]
+albedo_color = Color(0.366468, 0.254927, 0.212123, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjbyb"]
+albedo_color = Color(0.364706, 0.254902, 0.211765, 1)
+
+[node name="map_01" instance=ExtResource("1_3c0u8")]
+
+[node name="Cube " parent="." index="0"]
+material_override = ExtResource("2_5glvh")
+
+[node name="Cube_001  " parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_ws5u5")
+
+[node name="Cube_002  " parent="." index="2"]
+material_override = ExtResource("2_5glvh")
+
+[node name="Cube_003  " parent="." index="3"]
+material_override = ExtResource("2_5glvh")
+
+[node name="Cube_004  " parent="." index="4"]
+material_override = ExtResource("2_5glvh")
+
+[node name="Cylinder  " parent="." index="5"]
+material_override = SubResource("StandardMaterial3D_jjbyb")
+
+[node name="Cube_005  " parent="." index="6"]
+material_override = ExtResource("2_5glvh")
+
+[node name="Cube_005  _001" parent="." index="7"]
+material_override = ExtResource("2_5glvh")

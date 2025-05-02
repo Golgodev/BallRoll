@@ -1,0 +1,247 @@
+[gd_scene load_steps=23 format=3 uid="uid://bjulxpq8dyrg8"]
+
+[ext_resource type="Script" uid="uid://cetom3a1wf86l" path="res://Scripts/Player.cs" id="1_ncud3"]
+[ext_resource type="Script" uid="uid://du1x7p318670b" path="res://Scripts/BallCameraFollow.cs" id="2_0qe2r"]
+[ext_resource type="PackedScene" uid="uid://ckevvrxd8iq4s" path="res://Player.tscn" id="3_w1f16"]
+[ext_resource type="PackedScene" uid="uid://mywcqdus4e42" path="res://Scenes/map_01.tscn" id="5_ef2fr"]
+[ext_resource type="PackedScene" uid="uid://b3vx0nq505fs4" path="res://Models/flag.blend" id="5_hou7y"]
+[ext_resource type="Texture2D" uid="uid://d3p5yn1in8uy7" path="res://Textures/img_input.png" id="8_215kr"]
+[ext_resource type="PackedScene" uid="uid://lgv8xvfqxu2u" path="res://obstacle.tscn" id="8_varje"]
+[ext_resource type="PackedScene" uid="uid://cqp47nyorj0a8" path="res://coin_pick.tscn" id="9_trltb"]
+[ext_resource type="Shader" uid="uid://dvxll32cikscd" path="res://water.tres" id="10_ygwh0"]
+[ext_resource type="PackedScene" uid="uid://okoa8trrfjsq" path="res://trap_3.tscn" id="11_h86xc"]
+[ext_resource type="Script" uid="uid://cuno2g5be3fps" path="res://Scripts/SceneManager.cs" id="12_xu6lc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a2fau"]
+sky_horizon_color = Color(0.782167, 0.812543, 0.86775, 1)
+sky_energy_multiplier = 0.45
+ground_bottom_color = Color(0.743667, 0.796172, 0.920998, 1)
+ground_horizon_color = Color(0.782167, 0.812543, 0.86775, 1)
+
+[sub_resource type="Sky" id="Sky_8nonl"]
+sky_material = SubResource("ProceduralSkyMaterial_a2fau")
+
+[sub_resource type="Environment" id="Environment_ulbsa"]
+background_mode = 2
+sky = SubResource("Sky_8nonl")
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_24818"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o5yvi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bv28c"]
+render_priority = 0
+shader = ExtResource("10_ygwh0")
+shader_parameter/ColorParameter = Color(0.117473, 0.511162, 0.749686, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y06ja"]
+material = SubResource("ShaderMaterial_bv28c")
+size = Vector2(50, 50)
+subdivide_width = 20
+subdivide_depth = 20
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50jc3"]
+albedo_color = Color(0.589322, 0.705763, 0.955179, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h88sl"]
+material = SubResource("StandardMaterial3D_50jc3")
+size = Vector2(500, 500)
+subdivide_width = 50
+subdivide_depth = 50
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vauyd"]
+size = Vector3(500, 0.001, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_glm2v"]
+size = Vector3(6.9552, 8.00104, 6.99121)
+
+[node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ulbsa")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.688354, -0.461395, 0.559717, 0, 0.771625, 0.636078, -0.725374, 0.437847, -0.531151, 0, 0, 0)
+light_color = Color(0.502235, 0.639043, 0.796059, 1)
+light_energy = 0.4
+shadow_enabled = true
+directional_shadow_max_distance = 805.0
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_ncud3")
+
+[node name="WonScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="WonScreen"]
+self_modulate = Color(0.0862745, 0.0862745, 0.0862745, 0.894118)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_24818")
+
+[node name="Label" type="Label" parent="WonScreen/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.0
+offset_top = -55.0
+offset_right = 207.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 80
+text = "YOU WON!"
+
+[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("objectFollow")]
+transform = Transform3D(1, 0, 0, 0, 0.813527, 0.581527, 0, -0.581527, 0.813527, 0, 3.4981, 3.92643)
+script = ExtResource("2_0qe2r")
+objectFollow = NodePath("../PlayerBall")
+
+[node name="PlayerBall" parent="." instance=ExtResource("3_w1f16")]
+transform = Transform3D(0.999058, -0.0433927, 0, 0.0433927, 0.999058, 0, 0, 0, 1, 0.0630589, 1.40892, 1.43787)
+mass = 0.5
+Speed = 0.025
+JumpForce = 20.0
+
+[node name="map_01" parent="." instance=ExtResource("5_ef2fr")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="CoinText" type="Label" parent="Canvas"]
+visible = false
+offset_left = 47.0
+offset_top = 12.0
+offset_right = 262.0
+offset_bottom = 76.0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Canvas"]
+visible = false
+offset_right = 156.0
+offset_bottom = 89.0
+texture = SubResource("CompressedTexture2D_o5yvi")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Canvas"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = -146.0
+offset_right = 226.0
+offset_bottom = -18.0
+grow_vertical = 0
+texture = ExtResource("8_215kr")
+
+[node name="obstacle2" parent="." instance=ExtResource("8_varje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41861, -30)
+
+[node name="obstacle3" parent="." instance=ExtResource("8_varje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014557, -0.771627, -61.6061)
+
+[node name="obstacle4" parent="." instance=ExtResource("8_varje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014557, -0.771627, -78.2376)
+
+[node name="obstacle5" parent="." instance=ExtResource("8_varje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014557, -0.771627, -94.2376)
+
+[node name="Coins" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.105495, 0.120541, 0.00911713)
+
+[node name="CoinPick3" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, 2.11324, -12.3742)
+
+[node name="CoinPick4" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, 2.11324, -16.3742)
+
+[node name="CoinPick5" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, 2.11324, -20.3742)
+
+[node name="CoinPick6" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, 2.11324, -24.3742)
+
+[node name="CoinPick7" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, 1.11324, -54.3742)
+
+[node name="CoinPick8" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, 1.11324, -54.3742)
+
+[node name="CoinPick9" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, -0.574071, -66.5228)
+
+[node name="CoinPick10" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, -0.574071, -70.3362)
+
+[node name="CoinPick11" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, -0.574071, -75.7693)
+
+[node name="CoinPick12" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, -0.574071, -79.5489)
+
+[node name="CoinPick13" parent="Coins" instance=ExtResource("9_trltb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12649, -0.574071, -95.1858)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.18547, 0)
+visible = false
+mesh = SubResource("PlaneMesh_y06ja")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.03743, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("PlaneMesh_h88sl")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4995, -6.32851)
+shape = SubResource("BoxShape3D_vauyd")
+
+[node name="trap_3" parent="." instance=ExtResource("11_h86xc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.0679, -0.525408, -107.336)
+
+[node name="trap_4" parent="." instance=ExtResource("11_h86xc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.0679, -0.525408, -110.714)
+
+[node name="trap_5" parent="." instance=ExtResource("11_h86xc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.0679, -0.525408, -114.2)
+
+[node name="trap_6" parent="." instance=ExtResource("11_h86xc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.0679, -0.525408, -117.282)
+
+[node name="trap_7" parent="." instance=ExtResource("11_h86xc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.0679, -0.525408, -120.282)
+
+[node name="trap_8" parent="." instance=ExtResource("11_h86xc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.0679, -0.525408, -123.282)
+
+[node name="WinFlag" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.3396, -0.31032, -135.939)
+script = ExtResource("12_xu6lc")
+
+[node name="flag" parent="WinFlag" instance=ExtResource("5_hou7y")]
+transform = Transform3D(-0.0393645, 7.45058e-09, -0.999225, -1.10595e-08, 1, 3.72529e-09, 0.999225, 7.66704e-09, -0.0393644, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WinFlag"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216248, 4.14413, 0.429199)
+shape = SubResource("BoxShape3D_glm2v")
+
+[connection signal="body_entered" from="Area3D" to="GameManager" method="Dead"]
+[connection signal="body_entered" from="WinFlag" to="WinFlag" method="NextScene"]

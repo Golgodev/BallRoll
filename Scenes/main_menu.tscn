@@ -1,0 +1,156 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3niib3y0xrv2"]
+
+[ext_resource type="Script" uid="uid://csqc2w1pi1rhf" path="res://Scripts/MainMenu.cs" id="1_48xlc"]
+[ext_resource type="Texture2D" uid="uid://blxmafedacxjp" path="res://Textures/img_placeholder.png" id="2_1ehe0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgg5p"]
+bg_color = Color(0.758192, 0.758192, 0.758192, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvjwg"]
+bg_color = Color(0.91664, 0.91664, 0.91664, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymesu"]
+bg_color = Color(0.0962047, 0.0962048, 0.0962047, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0afq"]
+bg_color = Color(0.860369, 0.860369, 0.860369, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_48xlc")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+
+[node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer"]
+self_modulate = Color(0.231127, 0.352127, 0.545014, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1ehe0")
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -239.0
+offset_top = -38.0
+offset_right = 239.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Control/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_cgg5p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rvjwg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ymesu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_c0afq")
+text = "PLAY"
+
+[node name="Button3" type="Button" parent="Control/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_cgg5p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rvjwg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ymesu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_c0afq")
+text = "OPTIONS (IN PROGRESS)"
+
+[node name="Button2" type="Button" parent="Control/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_cgg5p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rvjwg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ymesu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_c0afq")
+text = "EXIT"
+
+[node name="Label" type="Label" parent="Control/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -335.0
+offset_right = 335.0
+offset_bottom = 279.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 25
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 166
+text = "BIG BALL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -335.0
+offset_right = 335.0
+offset_bottom = 279.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 25
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 166
+text = "BIG BALL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Control/CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -361.0
+offset_top = -86.0
+offset_right = 362.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 12
+text = "MADE BY DANIHEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Control/CanvasLayer/VBoxContainer/Button" to="." method="PlayGame" flags=6]
+[connection signal="pressed" from="Control/CanvasLayer/VBoxContainer/Button2" to="." method="ExitGame"]

@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqp47nyorj0a8"]
+
+[ext_resource type="PackedScene" uid="uid://ra2a2wqxlmig" path="res://Models/coin.blend" id="1_kacbq"]
+[ext_resource type="Script" uid="uid://bdtmogo0xwnnv" path="res://Scripts/Pickable.cs" id="1_l8ybl"]
+[ext_resource type="AudioStream" uid="uid://dmbygb7ffvc8t" path="res://pickupCoin.wav" id="3_twfm6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dso7n"]
+size = Vector3(0.834412, 2.52924, 1.66794)
+
+[sub_resource type="Animation" id="Animation_b6q00"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("coin:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("coin")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 1.61887, 0)
+
+[sub_resource type="Animation" id="Animation_67gnn"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("coin:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -6.28319, 0)]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("coin")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 1.619, 0, 0.5, 1, 0, 1, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i7f4b"]
+_data = {
+&"RESET": SubResource("Animation_b6q00"),
+&"rotate": SubResource("Animation_67gnn")
+}
+
+[node name="CoinPick" type="Area3D" node_paths=PackedStringArray("au")]
+script = ExtResource("1_l8ybl")
+au = NodePath("PickupCoin")
+
+[node name="coin" parent="." instance=ExtResource("1_kacbq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.61887, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0249939, 1.29092, -0.0132294)
+shape = SubResource("BoxShape3D_dso7n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i7f4b")
+}
+autoplay = "rotate"
+speed_scale = 0.8
+
+[node name="PickupCoin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_twfm6")
+volume_db = 24.0
+
+[connection signal="body_entered" from="." to="." method="Add"]
